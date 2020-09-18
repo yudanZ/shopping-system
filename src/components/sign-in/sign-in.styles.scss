@@ -1,0 +1,19 @@
+.sign-in {
+    width: 380px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    margin: 10px 0;
+    font-size: 25px;
+}
+
+.signin-button-group {
+    display: flex;
+   
+}
+
+.signin-button-group > div {
+    margin-right: 15px;
+}
