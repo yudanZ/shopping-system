@@ -3,6 +3,8 @@ import './header.styles.scss';
 
 import { Link } from 'react-router-dom';
 
+import { connect } from 'react-redux';
+
 import { auth } from '../../firebase/firebase.utils';
 
 const Header = ({ currentUser }) => (
@@ -24,6 +26,11 @@ const Header = ({ currentUser }) => (
         </div>
     </div>
 
-)
+);
 
-export default Header;
+// any time the store is updated, mapStateToProps will be called
+const mapStateToProps = state => ({
+    currentUser: state.user.currentUser
+})
+
+export default connect(mapStateToProps)(Header);

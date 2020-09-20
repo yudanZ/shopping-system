@@ -4,11 +4,20 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+/** Makes the Redux store available to the rest of app */
+import { Provider } from 'react-redux';
+
+// Create a Redux store holding the state of app.
+// Its API is { subscribe, dispatch, getState }.
+import store from './redux/store';
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-    
-  </React.StrictMode>,
+  <Provider store = { store }>
+    <React.StrictMode>
+      <App />
+      
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 
