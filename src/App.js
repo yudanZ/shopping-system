@@ -2,7 +2,8 @@ import React from 'react';
 import { 
   BrowserRouter as Router,
   Route , 
-  Switch } from 'react-router-dom';
+  Switch,
+  Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
@@ -22,11 +23,7 @@ import './App.css';
 
 
 class App extends React.Component {
-  constructor(){
-    super()
-
-  }
-
+ 
   unsubscribeFromAuth = null;
 
   componentDidMount(){
@@ -45,7 +42,7 @@ class App extends React.Component {
        
       }
 
-      this.props.setCurrentUser({ userAuth});
+      this.props.setCurrentUser(userAuth);
       //createUserProfileDocument(user);
 
       //console.log( user);
@@ -66,7 +63,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path='/' component={HomePage} />
             <Route exact path='/shop' component={ShopPage} />
-            <Route exact path='/signin' component={SigninAndRegisterPage} />
+            <Route exact path='/signin' render = {() => this.props.currentUser ? (<Redirect to='/' />) : (<SigninAndRegisterPage />)} />
           </Switch>
           
         </div>
@@ -76,8 +73,13 @@ class App extends React.Component {
   
 }
 
-//dispatch an action to the store
+// any time the store is updated, mapStateToProps will be called
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+})
+
+//dispatch is a function of store, will changing state via an action to the store
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch( setCurrentUser( user))
 })
-export default connect(null, mapDispatchToProps )(App);
+export default connect(mapStateToProps, mapDispatchToProps )(App);
