@@ -3,8 +3,8 @@
     width: auto;
     height: 42px;
     letter-spacing: 0.5px;
-    line-height: 50px;
-    padding: 0 35px 0 35px;
+    text-align: center;
+    margin: auto;
     font-size: 14px;
     background-color:  #8ebfe7;
     color: white;
@@ -13,6 +13,8 @@
     font-weight: bold;
     border: none;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
 
     &:hover {
         background-color: #007bff;
@@ -21,6 +23,18 @@
     }
 
    
+}
+
+.inverted {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+
+    &:hover {
+        background-color:  #8ebfe7;
+        color: white;
+        border: none 
+    }
 }
 
 .google-btn {
