@@ -1,13 +1,16 @@
 import React from 'react';
 import './header.styles.scss';
 
+
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
 import { auth } from '../../firebase/firebase.utils';
+import CartIcon from '../cart-icon/cart-icon.component';
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
-const Header = ({ currentUser }) => (
+const Header = ({ currentUser, hidden }) => (
     
     <div className="header">
         <Link className="logo-container" to="/">
@@ -18,20 +21,28 @@ const Header = ({ currentUser }) => (
             <Link to='/contact' className='option'>CONTACT</Link>
 
             {   
-                currentUser ?
+                currentUser ? (
                 <div className='option' onClick={() => auth.signOut()}>SIGN OUT</div>
 
-                :
+                ) : (
                 <Link to='/signin' className='option'>SIGN IN</Link>
-            }
+            )}
+
+            <CartIcon></CartIcon>
         </div>
+        {   hidden ? null :
+            (<CartDropdown></CartDropdown>)
+
+        }
     </div>
 
 );
 
 // any time the store is updated, mapStateToProps will be called
-const mapStateToProps = state => ({
-    currentUser: state.user.currentUser
+const mapStateToProps = ({user: {currentUser}, cart: {hidden}}) => ({
+    currentUser: currentUser,
+    hidden: hidden
+
 })
 
 export default connect(mapStateToProps)(Header);

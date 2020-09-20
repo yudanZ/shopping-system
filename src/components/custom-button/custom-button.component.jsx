@@ -2,7 +2,7 @@ import React from 'react';
 import './custom-button.styles.scss';
 
 const CustomButton = ({ children, isGoogleSignIn,...otherPorps }) =>(
-    <div>
+    <div className="custom-button-container">
         { isGoogleSignIn ?
 
             <div {...otherPorps} className="google-btn">
