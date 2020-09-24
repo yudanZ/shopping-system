@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import { PersistGate } from 'redux-persist/integration/react';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -9,14 +11,16 @@ import { Provider } from 'react-redux';
 
 // Create a Redux store holding the state of app.
 // Its API is { subscribe, dispatch, getState }.
-import store from './redux/store';
+import {store, persistor} from './redux/store';
 
 ReactDOM.render(
   <Provider store = { store }>
-    <React.StrictMode>
-      <App />
-      
-    </React.StrictMode>
+    <PersistGate loading={null} persistor={persistor}>
+      <React.StrictMode>
+        <App />
+        
+      </React.StrictMode>
+    </PersistGate>
   </Provider>,
   document.getElementById('root')
 );
