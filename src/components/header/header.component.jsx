@@ -11,9 +11,6 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 
-import './header.styles.scss';
-
-
 
 const Header = ({ currentUser, hidden }) => (
     <div className="header">

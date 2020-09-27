@@ -1,4 +1,6 @@
 import React from 'react';
+
+/****React routing */
 import { 
   BrowserRouter as Router,
   Route , 
@@ -11,14 +13,18 @@ import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SigninAndRegisterPage from './pages/signin-register/signin-register.component';
 import CheckoutPage from './pages/checkout/checkout.component';
-
 import Header from './components/header/header.component';
 
 /******Google firebase authentication */
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument} from './firebase/firebase.utils';
 
+/*******Redux actions */
 import { setCurrentUser } from './redux/user/user.actions';
+
+/*******Redux reselect */
 import { selectCurrentUser} from './redux/user/user.selectors';
+
+//import { selectCollectionsForPreview } from './redux/shop/shop.selectors';
 
 import './App.css';
 
@@ -29,10 +35,12 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount(){
+    
     this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
       if( userAuth){
         const userRef = await createUserProfileDocument( userAuth);
         
+        /*******Firebase onSnapshot, whenever data changes will fired this function */
         userRef.onSnapshot( snapShot => {
           //console.log(snapShot.data())
           this.props.setCurrentUser({
@@ -45,10 +53,11 @@ class App extends React.Component {
       }
 
       this.props.setCurrentUser(userAuth);
-      //createUserProfileDocument(user);
-
+      
+      //addCollectionAndDocuments('collections', this.props.collectionsArray.map(({title, items}) => ({title, items})));
       //console.log( user);
     })
+
   }
 
   componentWillUnmount(){
@@ -79,6 +88,7 @@ class App extends React.Component {
 // any time the store is updated, mapStateToProps will be called
 const mapStateToProps = state => ({
   currentUser: selectCurrentUser(state)
+ 
 })
 
 //dispatch is a function of store, will changing state via an action to the store

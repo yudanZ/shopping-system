@@ -9,7 +9,7 @@ const MenuItem = ({ title, imageUrl, history, linkUrl , match}) => (
             <img src={imageUrl} alt="img"></img>
         </div>
         <div className="content">
-            <h1 className='title'>{ title }</h1>
+            <h1 className='title' onClick={() => history.push(`${match.url}${linkUrl}`)}>{ title }</h1>
         </div>
     </div>
 );
